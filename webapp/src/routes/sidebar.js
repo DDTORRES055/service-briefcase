@@ -17,6 +17,11 @@ const routes = [
     name: 'Departamentos',
   },
   {
+    path: '/app/teams',
+    icon: 'FormsIcon',
+    name: 'Equipos',
+  },
+  {
     path: '/app/forms',
     icon: 'FormsIcon',
     name: 'Forms',

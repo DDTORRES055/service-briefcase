@@ -5,6 +5,9 @@ const Dashboard = lazy(() => import('../pages/Dashboard'))
 const Departments = lazy(() => import('../pages/Departments'))
 const AddDepartment = lazy(() => import('../pages/Departments/Add'))
 const EditDepartment = lazy(() => import('../pages/Departments/Edit'))
+const Teams = lazy(() => import('../pages/Teams'))
+const AddTeam = lazy(() => import('../pages/Teams/Add'))
+const EditTeam = lazy(() => import('../pages/Teams/Edit'))
 const Forms = lazy(() => import('../pages/Forms'))
 const Cards = lazy(() => import('../pages/Cards'))
 const Charts = lazy(() => import('../pages/Charts'))
@@ -40,6 +43,18 @@ const routes = [
   {
     path: '/departments/edit/:id',
     component: EditDepartment,
+  },
+  {
+    path: '/teams',
+    component: Teams,
+  },
+  {
+    path: '/teams/add',
+    component: AddTeam,
+  },
+  {
+    path: '/teams/edit/:id',
+    component: EditTeam,
   },
   {
     path: '/forms',

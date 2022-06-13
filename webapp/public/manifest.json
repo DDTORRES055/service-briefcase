@@ -1,0 +1,21 @@
+{
+  "short_name": "Portafolio de servicios",
+  "name": "Portafolio de servicios",
+  "description": "Portaafolio de servicios del equipo Bustamante Negrete Juan Carlos, Diaz Torres Daniel, Martinez Garcia Ieschua Sebastian y Paredes Arriaga Maura Isabel",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "256x256",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "service-briefcase.png",
+      "type": "image/png",
+      "sizes": "501x501"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#1A1C23"
+}

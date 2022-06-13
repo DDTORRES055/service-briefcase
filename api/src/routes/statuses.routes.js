@@ -4,6 +4,6 @@ const statusesRouter = Router()
 
 const statusesController = require('../controllers/statuses.controller')
 
-statusesRouter.route('/').get(statusesController.getEnvironments)
+statusesRouter.route('/').get(statusesController.getStatuses)
 
 module.exports = statusesRouter

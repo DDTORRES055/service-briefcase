@@ -37,6 +37,17 @@ app.get('/main', (req, res) => {
 
 // app.use("/api/products", verifyAuthToken, require("./routes/products.routes"));
 
+
+app.use(
+  '/api/statuses',
+  verifyAuthToken,
+  require('./routes/statuses.routes')
+)
+app.use(
+  '/api/environments',
+  verifyAuthToken,
+  require('./routes/environments.routes')
+)
 app.use(
   '/api/applications',
   verifyAuthToken,

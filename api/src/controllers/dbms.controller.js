@@ -5,13 +5,18 @@ const dbmsController = {}
 const pool = require('../database')
 
 dbmsController.getDbms = async (req, res) => {
-  const dbms = await pool.query('SELECT * FROM dbms')
+  const dbms = await pool.query(
+    'SELECT * FROM providers RIGHT JOIN dbms ON dbms.provider_id = providers.provider_id'
+  )
   res.json(dbms)
 }
 
 dbmsController.getDbmsById = async (req, res) => {
   const id = req.params.id
-  const dbms = await pool.query('SELECT * FROM dbms WHERE dbms_id = ?', [id])
+  const dbms = await pool.query(
+    'SELECT * FROM providers RIGHT JOIN dbms ON dbms.provider_id = providers.provider_id WHERE dbms_id = ?',
+    [id]
+  )
   const dbmsById = dbms[0]
   res.json({ success: true, dbmsById })
 }

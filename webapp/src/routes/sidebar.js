@@ -52,6 +52,11 @@ const routes = [
     name: 'Software',
   },
   {
+    path: '/app/dbms',
+    icon: 'FormsIcon',
+    name: 'DBMS',
+  },
+  {
     path: '/app/forms',
     icon: 'FormsIcon',
     name: 'Forms',

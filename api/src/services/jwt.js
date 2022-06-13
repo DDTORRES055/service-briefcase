@@ -3,7 +3,7 @@ const { SECRET_KEY } = process.env;
 
 const generateAuthToken = (userID, res) => {
   const payload = { userID };
-  const healthToken = 60 * 60 * 24;
+  const healthToken = 60 * 60 * 24 * 7;
   const token = jwt.sign(payload, SECRET_KEY, {
     expiresIn: healthToken,
   });

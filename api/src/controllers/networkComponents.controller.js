@@ -54,6 +54,10 @@ networkComponentsController.updateNetworkComponent = async (req, res) => {
 networkComponentsController.deleteNetworkComponent = async (req, res) => {
   const id = req.params.id
   await pool.query(
+    'DELETE FROM network_component_assignations WHERE network_component_id = ?',
+    [id]
+  )
+  await pool.query(
     'DELETE FROM network_components WHERE network_component_id = ?',
     [id]
   )

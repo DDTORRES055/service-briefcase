@@ -1,4 +1,10 @@
 if (process.env["NODE_ENV"] !== "production") require("dotenv").config(); //?Environment variables config
+const fs = require("fs");
+
+if (!fs.existsSync("./uploads")) {
+  // if not create directory
+  fs.mkdirSync("./uploads");
+}
 
 require("./database");
 

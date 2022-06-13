@@ -81,11 +81,11 @@ networksController.updateNetwork = async (req, res) => {
 
 networksController.deleteNetwork = async (req, res) => {
   const id = req.params.id
-  await pool.query('DELETE FROM networks WHERE network_id = ?', [id])
   await pool.query(
     'DELETE FROM network_component_assignations WHERE network_id = ?',
     [id]
   )
+  await pool.query('DELETE FROM networks WHERE network_id = ?', [id])
   res.send({ success: true, message: 'Network deleted' })
 }
 

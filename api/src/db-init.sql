@@ -194,6 +194,14 @@ CREATE TABLE service_users (
   FOREIGN KEY (department_id) REFERENCES departments (department_id)
 );
 
+CREATE TABLE files (
+  file_id INT(11) NOT NULL AUTO_INCREMENT,
+  file_name VARCHAR(100) NOT NULL,
+  file_path VARCHAR(150) NOT NULL,
+
+  PRIMARY KEY (file_id)
+);
+
 CREATE TABLE users (
   user_id INT(11) NOT NULL AUTO_INCREMENT,
   user_name VARCHAR(50) NOT NULL,

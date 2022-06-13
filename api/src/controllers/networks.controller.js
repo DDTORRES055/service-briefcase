@@ -5,18 +5,32 @@ const networksController = {}
 const pool = require('../database')
 
 networksController.getNetworks = async (req, res) => {
-  const networks = await pool.query('SELECT * FROM networks')
+  const networks = await pool.query(
+    'SELECT * FROM providers RIGHT JOIN networks ON networks.provider_id = providers.provider_id'
+  )
   res.json(networks)
 }
 
 networksController.getNetworkById = async (req, res) => {
   const id = req.params.id
   const networks = await pool.query(
-    'SELECT * FROM networks WHERE network_id = ?',
+    'SELECT * FROM providers RIGHT JOIN networks ON networks.provider_id = providers.provider_id WHERE network_id = ?',
     [id]
   )
-  const networksById = networks[0]
-  res.json({ success: true, networksById })
+  const networkComponents = await pool.query(
+    'SELECT * FROM network_component_assignations WHERE network_id = ?',
+    [id]
+  )
+  const network = networks[0]
+  res.json({
+    success: true,
+    network: {
+      ...network,
+      network_components: networkComponents.map(
+        (component) => component.network_component_id
+      ),
+    },
+  })
 }
 
 networksController.createNetwork = async (req, res) => {
@@ -25,12 +39,13 @@ networksController.createNetwork = async (req, res) => {
     network_name,
     provider_id,
   }
-  await pool.query('INSERT INTO networks set ?', [newNetwork])
-  const last_id = await pool.query('SELECT LAST_INSERT_ID()')
+  const networkQuery = await pool.query('INSERT INTO networks set ?', [
+    newNetwork,
+  ])
   network_components.forEach(async (component) => {
     await pool.query('INSERT INTO network_component_assignations set ?', [
       {
-        network_id: last_id[0]['LAST_INSERT_ID()'],
+        network_id: networkQuery.insertId,
         network_component_id: component,
       },
     ])

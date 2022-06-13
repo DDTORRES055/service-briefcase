@@ -5,18 +5,18 @@ const applicationsController = {}
 const pool = require('../database')
 
 applicationsController.getApplications = async (req, res) => {
-  const applications = await pool.query('SELECT * FROM applications')
+  const applications = await pool.query('SELECT * FROM providers RIGHT JOIN applications ON applications.provider_id = providers.provider_id')
   res.json(applications)
 }
 
 applicationsController.getApplicationById = async (req, res) => {
   const id = req.params.id
   const applications = await pool.query(
-    'SELECT * FROM applications WHERE application_id = ?',
+    'SELECT * FROM providers RIGHT JOIN applications ON applications.provider_id = providers.provider_id WHERE application_id = ?',
     [id]
   )
-  const applicationsById = applications[0]
-  res.json({ success: true, applicationsById })
+  const application = applications[0]
+  res.json({ success: true, application })
 }
 
 applicationsController.createApplication = async (req, res) => {

@@ -83,6 +83,7 @@ CREATE TABLE dbms (
   dbms_name VARCHAR(50) NOT NULL,
   dbms_version VARCHAR(20) NOT NULL,
   provider_id INT(11),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (dbms_id),
   FOREIGN KEY (provider_id) REFERENCES providers (provider_id)
@@ -93,6 +94,7 @@ CREATE TABLE software (
   software_name VARCHAR(50) NOT NULL,
   software_version VARCHAR(20) NOT NULL,
   provider_id INT(11),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (software_id),
   FOREIGN KEY (provider_id) REFERENCES providers (provider_id)
@@ -103,6 +105,7 @@ CREATE TABLE applications (
   application_name VARCHAR(50) NOT NULL,
   application_version VARCHAR(20) NOT NULL,
   provider_id INT(11),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (application_id),
   FOREIGN KEY (provider_id) REFERENCES providers (provider_id)
@@ -113,6 +116,7 @@ CREATE TABLE network_components (
   network_component_name VARCHAR(50) NOT NULL,
   network_component_version VARCHAR(20) NOT NULL,
   provider_id INT(11),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (network_component_id),
   FOREIGN KEY (provider_id) REFERENCES providers (provider_id)
@@ -122,6 +126,7 @@ CREATE TABLE networks (
   network_id INT(11) NOT NULL AUTO_INCREMENT,
   network_name VARCHAR(50) NOT NULL,
   provider_id INT(11),
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (network_id),
   FOREIGN KEY (provider_id) REFERENCES providers (provider_id)
@@ -194,6 +199,7 @@ CREATE TABLE users (
   user_name VARCHAR(50) NOT NULL,
   user_password VARCHAR(255) NOT NULL,
   user_email VARCHAR(50) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (user_id)
 );

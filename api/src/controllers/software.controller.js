@@ -5,14 +5,14 @@ const softwareController = {}
 const pool = require('../database')
 
 softwareController.getSoftware = async (req, res) => {
-  const software = await pool.query('SELECT * FROM software')
+  const software = await pool.query('SELECT * FROM providers RIGHT JOIN software ON software.provider_id = providers.provider_id')
   res.json(software)
 }
 
 softwareController.getSoftwareById = async (req, res) => {
   const id = req.params.id
   const software = await pool.query(
-    'SELECT * FROM software WHERE software_id = ?',
+    'SELECT * FROM providers RIGHT JOIN software ON software.provider_id = providers.provider_id WHERE software_id = ?',
     [id]
   )
   const softwareById = software[0]

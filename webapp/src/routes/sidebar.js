@@ -32,6 +32,11 @@ const routes = [
     name: 'Hardware',
   },
   {
+    path: '/app/applications',
+    icon: 'FormsIcon',
+    name: 'Aplicaciones',
+  },
+  {
     path: '/app/forms',
     icon: 'FormsIcon',
     name: 'Forms',

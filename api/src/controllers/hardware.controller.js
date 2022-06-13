@@ -5,14 +5,14 @@ const hardwareController = {}
 const pool = require('../database')
 
 hardwareController.getHardware = async (req, res) => {
-  const hardware = await pool.query('SELECT * FROM hardware')
+  const hardware = await pool.query('SELECT * FROM providers RIGHT JOIN hardware ON hardware.provider_id = providers.provider_id')
   res.json(hardware)
 }
 
 hardwareController.getHardwareById = async (req, res) => {
   const id = req.params.id
   const hardware = await pool.query(
-    'SELECT * FROM hardware WHERE hardware_id = ?',
+    'SELECT * FROM providers RIGHT JOIN hardware ON hardware.provider_id = providers.provider_id WHERE hardware_id = ?',
     [id]
   )
   const hardwareById = hardware[0]

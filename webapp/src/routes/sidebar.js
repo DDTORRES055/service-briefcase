@@ -27,6 +27,11 @@ const routes = [
     name: 'Proveedores',
   },
   {
+    path: '/app/hardware',
+    icon: 'FormsIcon',
+    name: 'Hardware',
+  },
+  {
     path: '/app/forms',
     icon: 'FormsIcon',
     name: 'Forms',

@@ -11,6 +11,9 @@ const EditTeam = lazy(() => import('../pages/Teams/Edit'))
 const Providers = lazy(() => import('../pages/Providers'))
 const AddProvider = lazy(() => import('../pages/Providers/Add'))
 const EditProvider = lazy(() => import('../pages/Providers/Edit'))
+const Hardware = lazy(() => import('../pages/Hardware'))
+const AddHardware = lazy(() => import('../pages/Hardware/Add'))
+const EditHardware = lazy(() => import('../pages/Hardware/Edit'))
 const Forms = lazy(() => import('../pages/Forms'))
 const Cards = lazy(() => import('../pages/Cards'))
 const Charts = lazy(() => import('../pages/Charts'))
@@ -70,6 +73,18 @@ const routes = [
   {
     path: '/providers/edit/:id',
     component: EditProvider,
+  },
+  {
+    path: '/hardware',
+    component: Hardware,
+  },
+  {
+    path: '/hardware/add',
+    component: AddHardware,
+  },
+  {
+    path: '/hardware/edit/:id',
+    component: EditHardware,
   },
   {
     path: '/forms',

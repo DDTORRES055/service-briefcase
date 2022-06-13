@@ -47,6 +47,11 @@ const routes = [
     name: 'Redes',
   },
   {
+    path: '/app/software',
+    icon: 'FormsIcon',
+    name: 'Software',
+  },
+  {
     path: '/app/forms',
     icon: 'FormsIcon',
     name: 'Forms',

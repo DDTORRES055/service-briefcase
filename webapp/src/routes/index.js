@@ -23,6 +23,9 @@ const EditNetworkComponent = lazy(() => import('../pages/NetworkComponents/Edit'
 const Networks = lazy(() => import('../pages/Networks'))
 const AddNetwork = lazy(() => import('../pages/Networks/Add'))
 const EditNetwork = lazy(() => import('../pages/Networks/Edit'))
+const Software = lazy(() => import('../pages/Software'))
+const AddSoftware = lazy(() => import('../pages/Software/Add'))
+const EditSoftware = lazy(() => import('../pages/Software/Edit'))
 const Forms = lazy(() => import('../pages/Forms'))
 const Cards = lazy(() => import('../pages/Cards'))
 const Charts = lazy(() => import('../pages/Charts'))
@@ -130,6 +133,18 @@ const routes = [
   {
     path: '/networks/edit/:id',
     component: EditNetwork,
+  },
+  {
+    path: '/software',
+    component: Software,
+  },
+  {
+    path: '/software/add',
+    component: AddSoftware,
+  },
+  {
+    path: '/software/edit/:id',
+    component: EditSoftware,
   },
   {
     path: '/forms',

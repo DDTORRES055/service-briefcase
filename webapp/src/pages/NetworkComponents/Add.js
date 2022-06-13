@@ -9,9 +9,9 @@ import { Spinner } from '../../icons'
 import RequestService from '../../services/Request.service'
 
 function Add() {
-  const [application, setApplication] = useState({
-    application_name: '',
-    application_version: '',
+  const [networkComponent, setNetworkComponent] = useState({
+    network_component_name: '',
+    network_component_version: '',
     provider_id: '',
   })
   const [providers, setProviders] = useState([])
@@ -25,8 +25,8 @@ function Add() {
   }, [])
 
   const handleChange = (e) => {
-    setApplication({
-      ...application,
+    setNetworkComponent({
+      ...networkComponent,
       [e.target.name]: e.target.value,
     })
   }
@@ -34,9 +34,9 @@ function Add() {
   const handleSubmit = (event) => {
     event.preventDefault()
     setProcessing(true)
-    RequestService.post('/applications', {
-      ...application,
-      provider_id: application.provider_id || null,
+    RequestService.post('/networkComponents', {
+      ...networkComponent,
+      provider_id: networkComponent.provider_id || null,
     }).then((res) => {
       setProcessing(false)
       setRedirect(true)
@@ -45,9 +45,9 @@ function Add() {
 
   return (
     <>
-      {redirect && <Redirect to='/app/applications' />}
+      {redirect && <Redirect to='/app/networkComponents' />}
 
-      <PageTitle>Añadir una aplicación</PageTitle>
+      <PageTitle>Añadir un componente de red</PageTitle>
 
       <form
         className='px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800'
@@ -56,11 +56,11 @@ function Add() {
         <Label>
           <span>Nombre</span>
           <Input
-            name='application_name'
+            name='network_component_name'
             className='mt-1'
-            placeholder='Aplicación...'
+            placeholder='Componente de red...'
             required
-            value={application.application_name}
+            value={networkComponent.network_component_name}
             onChange={handleChange}
           />
         </Label>
@@ -68,11 +68,11 @@ function Add() {
         <Label className='mt-4'>
           <span>Versión</span>
           <Input
-            name='application_version'
+            name='network_component_version'
             className='mt-1'
-            placeholder='Añade la version de la aplicación'
+            placeholder='Añade la version del componente de red'
             required
-            value={application.application_version}
+            value={networkComponent.network_component_version}
             onChange={handleChange}
           />
         </Label>
@@ -82,7 +82,7 @@ function Add() {
           <Select
             name='provider_id'
             className='mt-1'
-            value={application.provider_id}
+            value={networkComponent.provider_id}
             onChange={handleChange}
           >
             <option value=''>Ninguno</option>
@@ -94,7 +94,7 @@ function Add() {
           </Select>
         </Label>
         <div className='flex justify-end mt-6'>
-          <NavLink to='/app/applications'>
+          <NavLink to='/app/networkComponents'>
             <Button className='w-full sm:w-auto' layout='outline'>
               Cancelar
             </Button>

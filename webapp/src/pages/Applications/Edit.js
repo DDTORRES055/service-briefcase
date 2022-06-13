@@ -63,7 +63,7 @@ function Edit() {
           <Input
             name='application_name'
             className='mt-1'
-            placeholder='Equipo...'
+            placeholder='Aplicación...'
             required
             value={application.application_name}
             onChange={handleChange}

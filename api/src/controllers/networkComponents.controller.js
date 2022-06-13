@@ -5,18 +5,20 @@ const networkComponentsController = {}
 const pool = require('../database')
 
 networkComponentsController.getNetworkComponents = async (req, res) => {
-  const networkComponents = await pool.query('SELECT * FROM network_components')
+  const networkComponents = await pool.query(
+    'SELECT * FROM providers RIGHT JOIN network_components ON network_components.provider_id = providers.provider_id'
+  )
   res.json(networkComponents)
 }
 
 networkComponentsController.getNetworkComponentById = async (req, res) => {
   const id = req.params.id
   const networkComponents = await pool.query(
-    'SELECT * FROM network_components WHERE network_component_id = ?',
+    'SELECT * FROM providers RIGHT JOIN network_components ON network_components.provider_id = providers.provider_id WHERE network_component_id = ?',
     [id]
   )
-  const networkComponentsById = networkComponents[0]
-  res.json({ success: true, networkComponentsById })
+  const networkComponent = networkComponents[0]
+  res.json({ success: true, networkComponent })
 }
 
 networkComponentsController.createNetworkComponent = async (req, res) => {

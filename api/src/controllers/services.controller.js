@@ -51,8 +51,8 @@ servicesController.getServiceById = async (req, res) => {
     'SELECT * FROM services WHERE service_id = ?',
     [id]
   )
-  const servicesById = services[0]
-  res.json({ success: true, servicesById })
+  const service = services[0]
+  res.json({ success: true, service })
 }
 
 servicesController.createService = async (req, res) => {

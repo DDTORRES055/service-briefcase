@@ -70,7 +70,7 @@ function Add() {
           <Input
             name='software_version'
             className='mt-1'
-            placeholder='Añade la version de la aplicación'
+            placeholder='Añade la version del software'
             required
             value={software.software_version}
             onChange={handleChange}

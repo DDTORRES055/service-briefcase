@@ -17,6 +17,7 @@ servicesController.getServices = async (req, res) => {
     software_name,
     application_name,
     service_data,
+    services.created_at,
     sla_file.file_name AS sla_file_name,
     ola_file.file_name AS ola_file_name,
     sac_file.file_name AS sac_file_name
@@ -51,8 +52,32 @@ servicesController.getServiceById = async (req, res) => {
     'SELECT * FROM services WHERE service_id = ?',
     [id]
   )
+  const supportAssignations = await pool.query(
+    'SELECT * FROM support_assignations WHERE service_id = ?',
+    [id]
+  )
+  const serviceUsers = await pool.query(
+    'SELECT * FROM service_users WHERE service_id = ?',
+    [id]
+  )
+  const networkAssignations = await pool.query(
+    'SELECT * FROM network_assignations WHERE service_id = ?',
+    [id]
+  )
   const service = services[0]
-  res.json({ success: true, service })
+  res.json({
+    success: true,
+    service: {
+      ...service,
+      support_assignations: supportAssignations.map(
+        (assignation) => assignation.supporter_id
+      ),
+      service_users: serviceUsers.map((user) => user.department_id),
+      network_assignations: networkAssignations.map(
+        (network) => network.network_id
+      ),
+    },
+  })
 }
 
 servicesController.createService = async (req, res) => {
@@ -87,7 +112,9 @@ servicesController.createService = async (req, res) => {
     ola_id,
     sac_id,
   }
-  const serviceQuery = await pool.query('INSERT INTO services set ?', [newServices])
+  const serviceQuery = await pool.query('INSERT INTO services set ?', [
+    newServices,
+  ])
   support_assignations.forEach(async (support) => {
     await pool.query('INSERT INTO support_assignations set ?', [
       {

@@ -29,6 +29,9 @@ const EditSoftware = lazy(() => import('../pages/Software/Edit'))
 const Dbms = lazy(() => import('../pages/Dbms'))
 const AddDbms = lazy(() => import('../pages/Dbms/Add'))
 const EditDbms = lazy(() => import('../pages/Dbms/Edit'))
+const Services = lazy(() => import('../pages/Services'))
+const AddService = lazy(() => import('../pages/Services/Add'))
+const EditService = lazy(() => import('../pages/Services/Edit'))
 const Forms = lazy(() => import('../pages/Forms'))
 const Cards = lazy(() => import('../pages/Cards'))
 const Charts = lazy(() => import('../pages/Charts'))
@@ -160,6 +163,18 @@ const routes = [
   {
     path: '/dbms/edit/:id',
     component: EditDbms,
+  },
+  {
+    path: '/services',
+    component: Services,
+  },
+  {
+    path: '/services/add',
+    component: AddService,
+  },
+  {
+    path: '/services/edit/:id',
+    component: EditService,
   },
   {
     path: '/forms',

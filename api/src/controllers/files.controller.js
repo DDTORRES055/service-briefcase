@@ -20,9 +20,9 @@ filesController.getFileById = async (req, res) => {
 
 filesController.createFile = async (req, res) => {
   const { service_id, file_type } = req.body
-  const { filename, path } = req.file
+  const { path } = req.file
   const newFile = {
-    file_name: filename,
+    file_name: path.split('/').pop(),
     file_path: path,
   }
   const fileQuery = await pool.query('INSERT INTO files set ?', [newFile])

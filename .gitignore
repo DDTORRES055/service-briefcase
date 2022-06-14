@@ -5,3 +5,4 @@ api/public
 uploads
 build
 **/tailwind.output.css
+.firebase

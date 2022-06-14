@@ -21,12 +21,11 @@ teamsController.createTeam = async (req, res) => {
   const newSupporter = {
     supporter_type_id: 1,
   }
-  await pool.query('INSERT INTO supporters set ?', [newSupporter])
-  const last_id = await pool.query('SELECT LAST_INSERT_ID()')
+  const supporterQuery = await pool.query('INSERT INTO supporters set ?', [newSupporter])
   const newTeam = {
     team_name,
     team_description,
-    team_id: last_id[0]['LAST_INSERT_ID()'],
+    team_id: supporterQuery.insertId,
   }
   await pool.query('INSERT INTO teams set ?', [newTeam])
   res.send({ success: true, message: 'Team saved' })

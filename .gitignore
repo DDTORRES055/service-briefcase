@@ -3,3 +3,4 @@ api/public
 .env*
 *-lock.json
 uploads
+build

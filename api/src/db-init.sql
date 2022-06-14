@@ -152,9 +152,9 @@ CREATE TABLE services (
   software_id INT(11),
   application_id INT(11),
   service_data VARCHAR(100),
-  service_sla BLOB NOT NULL,
-  service_ola BLOB NOT NULL,
-  service_sac BLOB NOT NULL,
+  sla_id INT(11) NOT NULL,
+  ola_id INT(11) NOT NULL,
+  sac_id INT(11) NOT NULL,
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY (service_id),
@@ -164,7 +164,10 @@ CREATE TABLE services (
   FOREIGN KEY (hardware_id) REFERENCES hardware (hardware_id),
   FOREIGN KEY (dbms_id) REFERENCES dbms (dbms_id),
   FOREIGN KEY (software_id) REFERENCES software (software_id),
-  FOREIGN KEY (application_id) REFERENCES applications (application_id)
+  FOREIGN KEY (application_id) REFERENCES applications (application_id),
+  FOREIGN KEY (sla_id) REFERENCES files (file_id),
+  FOREIGN KEY (ola_id) REFERENCES files (file_id),
+  FOREIGN KEY (sac_id) REFERENCES files (file_id)
 );
 
 CREATE TABLE support_assignations (

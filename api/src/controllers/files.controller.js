@@ -4,6 +4,8 @@ const filesController = {}
 
 const pool = require('../database')
 
+const { bucket } = require('../services/storage')
+
 filesController.getFiles = async (req, res) => {
   const files = await pool.query(`
   SELECT * FROM files
@@ -14,8 +16,8 @@ filesController.getFiles = async (req, res) => {
 filesController.getFileById = async (req, res) => {
   const id = req.params.id
   const files = await pool.query('SELECT * FROM files WHERE file_id = ?', [id])
-  const fileById = files[0]
-  res.json({ success: true, fileById })
+  const file = files[0]
+  bucket.file(file.file_path).createReadStream().pipe(res)
 }
 
 filesController.createFile = async (req, res) => {

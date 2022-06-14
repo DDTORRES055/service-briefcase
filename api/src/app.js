@@ -61,7 +61,7 @@ app.use('/api/services', verifyAuthToken, require('./routes/services.routes'))
 app.use('/api/software', verifyAuthToken, require('./routes/software.routes'))
 app.use('/api/supporters', verifyAuthToken, require('./routes/supporters.routes'))
 app.use('/api/teams', verifyAuthToken, require('./routes/teams.routes'))
-app.use('/api/files', verifyAuthToken, require('./routes/files.routes'))
+app.use('/api/files', require('./routes/files.routes'))
 app.use('/api/users', require('./routes/users.routes'))
 
 app.get('*', (req, res) => {

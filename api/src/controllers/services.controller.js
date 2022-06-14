@@ -80,6 +80,95 @@ servicesController.getServiceById = async (req, res) => {
   })
 }
 
+servicesController.getServiceDetailsById = async (req, res) => {
+  const id = req.params.id
+  const services = await pool.query(
+    `SELECT
+    service_id,
+    service_name,
+    status_name,
+    department_name,
+    environment_name,
+    hardware_name,
+    dbms_name,
+    software_name,
+    application_name,
+    service_data,
+    services.created_at,
+    sla_file.file_id AS sla_file_id,
+    sla_file.file_name AS sla_file_name,
+    ola_file.file_id AS ola_file_id,
+    ola_file.file_name AS ola_file_name,
+    sac_file.file_id AS sac_file_id,
+    sac_file.file_name AS sac_file_name
+    FROM services
+    LEFT JOIN statuses
+    ON services.status_id = statuses.status_id
+    LEFT JOIN departments
+    ON services.owner_id = departments.department_id
+    LEFT JOIN environments
+    ON services.environment_id = environments.environment_id
+    LEFT JOIN hardware
+    ON services.hardware_id = hardware.hardware_id
+    LEFT JOIN dbms
+    ON services.dbms_id = dbms.dbms_id
+    LEFT JOIN software
+    ON services.software_id = software.software_id
+    LEFT JOIN applications
+    ON services.application_id = applications.application_id
+    LEFT JOIN files as sla_file
+    ON services.sla_id = sla_file.file_id
+    LEFT JOIN files as ola_file
+    ON services.ola_id = ola_file.file_id
+    LEFT JOIN files as sac_file
+    ON services.sac_id = sac_file.file_id
+    WHERE service_id = ?`,
+    [id]
+  )
+  const supportAssignations = await pool.query(
+    `SELECT
+    *
+    FROM support_assignations 
+    INNER JOIN supporters 
+    INNER JOIN supporter_types
+    ON supporters.supporter_type_id = supporter_types.supporter_type_id
+    LEFT JOIN teams 
+    ON supporters.supporter_id = teams.team_id 
+    LEFT JOIN providers 
+    ON supporters.supporter_id = providers.provider_id
+    WHERE service_id = ?`,
+    [id]
+  )
+  const serviceUsers = await pool.query(
+    `SELECT
+    *
+    FROM service_users 
+    INNER JOIN departments
+    ON service_users.department_id = departments.department_id
+    WHERE service_id = ?`,
+    [id]
+  )
+  const networkAssignations = await pool.query(
+    `SELECT
+    *
+    FROM network_assignations 
+    INNER JOIN networks
+    ON network_assignations.network_id = networks.network_id
+    WHERE service_id = ?`,
+    [id]
+  )
+  const service = services[0]
+  res.json({
+    success: true,
+    service: {
+      ...service,
+      support_assignations: supportAssignations,
+      service_users: serviceUsers,
+      network_assignations: networkAssignations,
+    },
+  })
+}
+
 servicesController.createService = async (req, res) => {
   const {
     service_name,

@@ -15,4 +15,8 @@ servicesRouter
   .put(servicesController.updateService)
   .delete(servicesController.deleteService)
 
+servicesRouter
+  .route('/details/:id')
+  .get(servicesController.getServiceDetailsById)
+
 module.exports = servicesRouter

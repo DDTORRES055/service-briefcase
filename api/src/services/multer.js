@@ -5,7 +5,7 @@ const storage = FirebaseStorage({
   bucketName: process.env.FIREBASE_STORAGE_BUCKET,
   credentials: {
     clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-    privateKey: process.env.FIREBASE_PRIVATE_KEY,
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
     projectId: process.env.FIREBASE_PROJECT_ID,
   },
   directoryPath: 'service-files',

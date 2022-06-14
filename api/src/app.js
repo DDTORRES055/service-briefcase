@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
-const path = require('path')
 const { verifyAuthToken } = require('./services/jwt')
 
 const app = express()
@@ -9,12 +8,6 @@ const app = express()
 //#region Settings
 
 app.set('PORT', process.env.PORT || 4000)
-
-//#endregion
-
-//#region Static files
-
-app.use(express.static(path.join(__dirname, 'public')))
 
 //#endregion
 
@@ -63,10 +56,6 @@ app.use('/api/supporters', verifyAuthToken, require('./routes/supporters.routes'
 app.use('/api/teams', verifyAuthToken, require('./routes/teams.routes'))
 app.use('/api/files', require('./routes/files.routes'))
 app.use('/api/users', require('./routes/users.routes'))
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'))
-})
 
 //#endregion
 

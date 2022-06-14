@@ -86,25 +86,49 @@ function Add() {
       }
       return
     }
+    if (e.target.type === 'file') {
+      setService({
+        ...service,
+        [e.target.name]: e.target.files[0],
+      })
+      return
+    }
     setService({
       ...service,
       [e.target.name]: e.target.value,
     })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
     setProcessing(true)
-    RequestService.post('/services', {
+    const response = await RequestService.post('/services', {
       ...service,
       hardware_id: service.hardware_id || null,
       dbms_id: service.dbms_id || null,
       software_id: service.software_id || null,
       application_id: service.application_id || null,
-    }).then((res) => {
-      setProcessing(false)
-      setRedirect(true)
     })
+    const { service_id } = response.data.service
+    const formDataSla = new FormData()
+    formDataSla.append('service_id', service_id)
+    formDataSla.append('file_type', 'sla')
+    formDataSla.append('file', service.service_sla)
+    await RequestService.post('/files', formDataSla)
+
+    const formDataOla = new FormData()
+    formDataOla.append('service_id', service_id)
+    formDataOla.append('file_type', 'ola')
+    formDataOla.append('file', service.service_ola)
+    await RequestService.post('/files', formDataOla)
+
+    const formDataSac = new FormData()
+    formDataSac.append('service_id', service_id)
+    formDataSac.append('file_type', 'sac')
+    formDataSac.append('file', service.service_sac)
+    await RequestService.post('/files', formDataSac)
+    setProcessing(false)
+    setRedirect(true)
   }
 
   return (
@@ -336,6 +360,42 @@ function Add() {
             placeholder='Añade los datos del servicio'
             required
             value={service.service_data}
+            onChange={handleChange}
+          />
+        </Label>
+
+        <Label className='mt-4'>
+          <span className='ml-2'>Documento PDF SLA</span>
+          <Input
+            className='mt-1'
+            type='file'
+            name='service_sla'
+            accept='.pdf'
+            required
+            onChange={handleChange}
+          />
+        </Label>
+
+        <Label className='mt-4'>
+          <span className='ml-2'>Documento PDF OLA</span>
+          <Input
+            className='mt-1'
+            type='file'
+            name='service_ola'
+            accept='.pdf'
+            required
+            onChange={handleChange}
+          />
+        </Label>
+
+        <Label className='mt-4'>
+          <span className='ml-2'>Documento PDF SAC</span>
+          <Input
+            className='mt-1'
+            type='file'
+            name='service_sac'
+            accept='.pdf'
+            required
             onChange={handleChange}
           />
         </Label>

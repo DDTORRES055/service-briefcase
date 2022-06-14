@@ -28,16 +28,6 @@ app.use(morgan('dev'))
 
 //#region Routes
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'))
-})
-app.get('/main', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'))
-})
-
-// app.use("/api/products", verifyAuthToken, require("./routes/products.routes"));
-
-
 app.use(
   '/api/statuses',
   verifyAuthToken,
@@ -73,6 +63,10 @@ app.use('/api/supporters', verifyAuthToken, require('./routes/supporters.routes'
 app.use('/api/teams', verifyAuthToken, require('./routes/teams.routes'))
 app.use('/api/files', verifyAuthToken, require('./routes/files.routes'))
 app.use('/api/users', require('./routes/users.routes'))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'index.html'))
+})
 
 //#endregion
 

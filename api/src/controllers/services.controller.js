@@ -139,7 +139,11 @@ servicesController.createService = async (req, res) => {
       },
     ])
   })
-  res.send({ success: true, message: 'Services saved' })
+  res.send({
+    success: true,
+    message: 'Service saved',
+    service: { service_id: serviceQuery.insertId },
+  })
 }
 
 servicesController.updateService = async (req, res) => {

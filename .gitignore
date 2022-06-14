@@ -4,3 +4,4 @@ api/public
 *-lock.json
 uploads
 build
+**/tailwind.output.css

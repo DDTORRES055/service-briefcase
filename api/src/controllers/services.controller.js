@@ -90,9 +90,22 @@ servicesController.getServiceDetailsById = async (req, res) => {
     department_name,
     environment_name,
     hardware_name,
+    cpu_frecuency,
+    cpu_architecture,
+    cpu_cores,
+    ram_size,
+    storage_size,
+    ssd,
+    hardware_provider.provider_name as hardware_provider_name,
     dbms_name,
+    dbms_version,
+    dbms_provider.provider_name as dbms_provider_name,
     software_name,
+    software_version,
+    software_provider.provider_name as software_provider_name,
     application_name,
+    application_version,
+    application_provider.provider_name as application_provider_name,
     service_data,
     services.created_at,
     sla_file.file_id AS sla_file_id,
@@ -122,6 +135,14 @@ servicesController.getServiceDetailsById = async (req, res) => {
     ON services.ola_id = ola_file.file_id
     LEFT JOIN files as sac_file
     ON services.sac_id = sac_file.file_id
+    LEFT JOIN providers as hardware_provider
+    ON hardware.provider_id = hardware_provider.provider_id
+    LEFT JOIN providers as dbms_provider
+    ON dbms.provider_id = dbms_provider.provider_id
+    LEFT JOIN providers as software_provider
+    ON software.provider_id = software_provider.provider_id
+    LEFT JOIN providers as application_provider
+    ON applications.provider_id = application_provider.provider_id
     WHERE service_id = ?`,
     [id]
   )
@@ -130,6 +151,7 @@ servicesController.getServiceDetailsById = async (req, res) => {
     *
     FROM support_assignations 
     INNER JOIN supporters 
+    ON support_assignations.supporter_id = supporters.supporter_id
     INNER JOIN supporter_types
     ON supporters.supporter_type_id = supporter_types.supporter_type_id
     LEFT JOIN teams 

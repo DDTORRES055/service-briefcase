@@ -98,64 +98,60 @@ function Services() {
               <TableRow key={i}>
                 <TableCell>
                   <div className='flex items-center text-sm'>
-                    <p className='font-semibold'>
-                      {service.service_name}
-                    </p>
+                    <NavLink to={`/app/services/details/${service.service_id}`}>
+                      <p className='font-semibold hover:text-purple-600'>
+                        {service.service_name}
+                      </p>
+                    </NavLink>
                   </div>
                 </TableCell>
                 <TableCell>
+                  <span className='text-sm'>{service.status_name}</span>
+                </TableCell>
+                <TableCell>
+                  <span className='text-sm'>{service.department_name}</span>
+                </TableCell>
+                <TableCell>
+                  <span className='text-sm'>{service.environment_name}</span>
+                </TableCell>
+                <TableCell>
                   <span className='text-sm'>
-                    {service.status_name}
+                    {service.hardware_name || 'Ninguno'}
                   </span>
                 </TableCell>
                 <TableCell>
                   <span className='text-sm'>
-                    {service.department_name}
+                    {service.dbms_name || 'Ninguno'}
                   </span>
                 </TableCell>
                 <TableCell>
                   <span className='text-sm'>
-                    {service.environment_name}
+                    {service.software_name || 'Ninguno'}
                   </span>
                 </TableCell>
                 <TableCell>
                   <span className='text-sm'>
-                    {service.hardware_name || "Ninguno"}
+                    {service.application_name || 'Ninguna'}
                   </span>
                 </TableCell>
                 <TableCell>
                   <span className='text-sm'>
-                    {service.dbms_name || "Ninguno"}
+                    {service.service_data || 'Ninguno'}
                   </span>
                 </TableCell>
                 <TableCell>
                   <span className='text-sm'>
-                    {service.software_name || "Ninguno"}
+                    {service.sla_file_name || 'Ninguno'}
                   </span>
                 </TableCell>
                 <TableCell>
                   <span className='text-sm'>
-                    {service.application_name || "Ninguna"}
+                    {service.ola_file_name || 'Ninguno'}
                   </span>
                 </TableCell>
                 <TableCell>
                   <span className='text-sm'>
-                    {service.service_data || "Ninguno"}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <span className='text-sm'>
-                    {service.sla_file_name || "Ninguno"}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <span className='text-sm'>
-                    {service.ola_file_name || "Ninguno"}
-                  </span>
-                </TableCell>
-                <TableCell>
-                  <span className='text-sm'>
-                    {service.sac_file_name || "Ninguno"}
+                    {service.sac_file_name || 'Ninguno'}
                   </span>
                 </TableCell>
                 <TableCell>

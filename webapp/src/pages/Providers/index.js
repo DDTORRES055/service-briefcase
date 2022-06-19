@@ -60,7 +60,7 @@ function Providers() {
 
   return (
     <>
-      <PageTitle>Equipos</PageTitle>
+      <PageTitle>Proveedores</PageTitle>
 
       <div className='my-6'>
         <NavLink to='/app/providers/add' className='mr-4'>
